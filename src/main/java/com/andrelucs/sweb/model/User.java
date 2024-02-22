@@ -1,9 +1,20 @@
 package com.andrelucs.sweb.model;
 
-import jakarta.persistence.*;
+
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_user")
@@ -17,6 +28,10 @@ public class User implements Serializable {
 	private String phone;
 	private String email;
 	private String password;
+
+	@JsonIgnore
+	@OneToMany
+	private List<Order> orders = new ArrayList<>();
 	
 	public User(Long id, String name, String phone, String email, String password) {
 		super();
@@ -94,6 +109,9 @@ public class User implements Serializable {
 		return "User [id=" + id + ", name=" + name + ", phone=" + phone + ", email=" + email + ", password=" + password
 				+ "]";
 	}
-	
+
+	public List<Order> getOrders() {
+		return orders;
+	}
 	
 }
